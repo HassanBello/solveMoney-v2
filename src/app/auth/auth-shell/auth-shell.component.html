@@ -1,0 +1,47 @@
+<div class="flex flex-col w-full">
+  <div class="absolute flex flex-row justify-between py-8 px-32 w-full">
+    <img src="assets/svgs/logo.svg" alt="" />
+    <div class="flex text-black-300 text-base items-center font-700">
+      <a class="flex items-center mx-5">
+        <img class="h-4 w-4 mr-3" src="assets/svgs/message.svg" /> Support</a
+      >
+      <a class="flex items-center mx-5">
+        <img class="h-4 w-4 mr-3" src="assets/svgs/phone.svg" />+234 818 375 3762</a
+      >
+    </div>
+  </div>
+  <div class="flex flex-row">
+    <div class="flex flex-col w-1/2 bg-gray-100 min-h-screen">
+      <div class="my-auto px-32 w-full">
+        <router-outlet></router-outlet>
+      </div>
+      <p class="text-blue-600 text-base text-center p-8">
+        © 2021 Travling. All Rights Reserved
+      </p>
+    </div>
+    <div
+      class="
+        flex
+        items-end
+        w-1/2
+        bg-auth bg-no-repeat bg-cover
+        min-h-screen
+        py-14
+        px-32
+      "
+    >
+      <div
+        class="
+          bg-[#584a4a] bg-opacity-30
+          rounded-[30px]
+          p-10
+          text-center text-white text-3xl
+          font-600
+          backdrop-blur-[18px]
+        "
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </div>
+    </div>
+  </div>
+</div>

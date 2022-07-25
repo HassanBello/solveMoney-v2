@@ -1,0 +1,36 @@
+<div class="flex flex-col w-full">
+  <h1 class="font-700 text-5xl text-blue-600 mb-2">Welcome Back</h1>
+  <p class="text-lg text-gray-600 mb-16">We support your growth</p>
+  <form class="flex-col flex" [formGroup]="loginForm">
+    <S-Input
+      placeHolder="+234 818 375 3762"
+      [prefix]="true"
+      type="tel"
+      formControlName="phoneNumber"
+      [controlName]="'phoneNumber'"
+      [inputMode]="'tel'"
+      [parentForm]="loginForm"
+      [validators]="phoneNumberConfig"
+    ></S-Input>
+    <S-Input
+      placeHolder="Enter your password"
+      formControlName="password"
+      [suffix]="true"
+      type="password"
+      [controlName]="'password'"
+      [inputMode]="'text'"
+      [parentForm]="loginForm"
+      [validators]="passwordConfig"
+    ></S-Input>
+  </form>
+  <a class="text-blue-100 text-base font-600 mb-5" [routerLink]="['/auth','reset-password']" routerLinkActive="router-link-active" >Reset password</a>
+  <s-button
+    type="primary"
+    size="large"
+    label="Sign In"
+    [isDisabled]="loginForm.invalid"
+  ></s-button>
+  <p class="mt-6 font-500 text-gray-600">
+    Don't have an account? <a class="text-blue-600">Sign up</a>
+  </p>
+</div>

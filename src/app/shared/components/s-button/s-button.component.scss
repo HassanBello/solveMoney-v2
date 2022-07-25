@@ -1,0 +1,79 @@
+$primary-01: #26355b;
+$primary-hover: #172037;
+$secondary-01: #f8fafc;
+$secondary-hover: #f1f5f9;
+$secondary-border: #cbd5e1;
+$destructive-01: #5aa5fe;
+$destructive-focus: #4888d5;
+$success-01: #10b981;
+$success-focus: #059669;
+$disabled: #e2e8f0;
+
+button.btn {
+  text-align: center;
+  border-radius: 5px;
+  transition: 0.32s ease-out;
+  width: 100%;
+  &-primary {
+    background: $primary-01;
+    color: #ffffff;
+    &:hover {
+      background: $primary-hover;
+    }
+    &:focus {
+      background: $primary-hover;
+    }
+  }
+  &-secondary {
+    background: $secondary-01;
+    border: 1px solid $secondary-border;
+    color: #334155;
+    &:hover {
+      background: $secondary-hover;
+    }
+    &:focus {
+      background: $secondary-hover;
+    }
+  }
+  &-destructive {
+    background: $destructive-01;
+    color: #ffffff;
+    &:hover {
+      background: $destructive-focus;
+    }
+    &:focus {
+      background: $destructive-focus;
+    }
+  }
+  &-success {
+    background: $success-01;
+    color: #ffffff;
+    &:hover {
+      background: $success-focus;
+    }
+    &:focus {
+      background: $success-focus;
+    }
+  }
+  &-small {
+    padding: 4px 8px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  &-medium {
+    padding: 8px 16px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  &-large {
+    font-weight: 500;
+    font-size: 16px;
+    padding: 16px 24px;
+  }
+  &:disabled {
+    background: $disabled;
+    color: #64748b;
+  }
+}

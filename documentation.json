@@ -1,0 +1,1737 @@
+{
+    "pipes": [],
+    "interfaces": [
+        {
+            "name": "IValidatorMessage",
+            "id": "interface-IValidatorMessage-0737eade97a97e64687f01b6a886569eb3b160650f1057f0a6a937594f6bd97d104c3b751508bb5990036475a084e2cdaa16c7d2be57137a57cd272ddd9ffaed",
+            "file": "src/app/shared/components/s-input/s-input.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, forwardRef, Input } from '@angular/core';\nimport {\n  ControlValueAccessor,\n  FormControl,\n  FormGroup,\n  NG_VALUE_ACCESSOR,\n} from '@angular/forms';\n\nexport interface IValidatorMessage {\n  validationName: string;\n  validationMessage: string;\n}\n\n@Component({\n  selector: 'S-Input',\n  templateUrl: './s-input.component.html',\n  styleUrls: ['./s-input.component.scss'],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      multi: true,\n      useExisting: forwardRef(() => SInputComponent),\n    },\n  ],\n})\nexport class SInputComponent implements ControlValueAccessor {\n  @Input() placeHolder: string = 'placeholder text';\n  @Input() prefix: boolean = false;\n  @Input() suffix: boolean = false;\n  @Input() type: string = 'text';\n  @Input() controlName: string = 'custom-input-1';\n  @Input() parentForm!: FormGroup;\n  @Input() validators?: IValidatorMessage[] = [];\n  @Input() inputMode:\n  | 'text'\n  | 'decimal'\n  | 'numeric'\n  | 'tel'\n  | 'search'\n  | 'email'\n  | 'url'\n  | 'none' = 'text';\n  customType = 'password';\n  showPassword: Boolean = false;\n  public value: any = '';\n  touched: boolean = false;\n\n  public changed = (value: any) => {};\n\n  public onTouched = (_: any) => {};\n\n  public isDisabled: boolean = false;\n\n  constructor() {}\n\n  setInputType() {\n    if (this.showPassword) {\n      this.customType = 'text';\n      return;\n    }\n    this.customType = 'password';\n  }\n\n  get formField(): FormControl {\n    return this.parentForm?.get(this.controlName) as FormControl;\n  }\n\n  onChange(event: Event) {\n    const value: any = (<HTMLInputElement>event.target).value;\n    this.changed(value);\n  }\n\n  writeValue(value: any) {\n    this.changed = value;\n  }\n\n  registerOnChange(changeFn: any) {\n    this.changed = changeFn;\n  }\n\n  registerOnTouched(touchedFn: any) {\n    this.onTouched = touchedFn;\n  }\n\n  setDisabledState(disabled: boolean) {\n    this.isDisabled = disabled;\n  }\n\n  markAsTouched() {\n    this.touched = !this.touched;\n  }\n}\n",
+            "properties": [
+                {
+                    "name": "validationMessage",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "validationName",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        }
+    ],
+    "injectables": [],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
+    "directives": [],
+    "components": [
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-fb1619cd866286469a00d1aed6731905b904c114f40b7b76770cfceb2f774d7e9c2bbb102ba908cc38a43d2303a2bb4250457d2f30315378792ec112adf224ed",
+            "file": "src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-root",
+            "styleUrls": [
+                "./app.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "loadingIcon",
+                    "defaultValue": "faCircleNotch",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "title",
+                    "defaultValue": "'solveMoney-v2'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { faCircleNotch } from '@fortawesome/free-solid-svg-icons';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.scss']\n})\nexport class AppComponent {\n  title = 'solveMoney-v2';\n  loadingIcon = faCircleNotch\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./app.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<router-outlet></router-outlet>\n"
+        },
+        {
+            "name": "AuthShellComponent",
+            "id": "component-AuthShellComponent-f210b1d1bd71c6bfec9f0aaf8652a39043f4fab658e1b232bb24adc64d8aa2e74dc44963f79c37127188fd1c7530cfa8f36675261c343c5d099ba3f817977dff",
+            "file": "src/app/auth/auth-shell/auth-shell.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./auth-shell.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  templateUrl: './auth-shell.component.html',\n})\nexport class AuthShellComponent {\n  \n  constructor() { }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 6
+            },
+            "templateData": "<div class=\"flex flex-col w-full\">\n  <div class=\"absolute flex flex-row justify-between py-8 px-32 w-full\">\n    <img src=\"assets/svgs/logo.svg\" alt=\"\" />\n    <div class=\"flex text-black-300 text-base items-center font-700\">\n      <a class=\"flex items-center mx-5\">\n        <img class=\"h-4 w-4 mr-3\" src=\"assets/svgs/message.svg\" /> Support</a\n      >\n      <a class=\"flex items-center mx-5\">\n        <img class=\"h-4 w-4 mr-3\" src=\"assets/svgs/phone.svg\" />+234 818 375 3762</a\n      >\n    </div>\n  </div>\n  <div class=\"flex flex-row\">\n    <div class=\"flex flex-col w-1/2 bg-gray-100 min-h-screen\">\n      <div class=\"my-auto px-32 w-full\">\n        <router-outlet></router-outlet>\n      </div>\n      <p class=\"text-blue-600 text-base text-center p-8\">\n        © 2021 Travling. All Rights Reserved\n      </p>\n    </div>\n    <div\n      class=\"\n        flex\n        items-end\n        w-1/2\n        bg-auth bg-no-repeat bg-cover\n        min-h-screen\n        py-14\n        px-32\n      \"\n    >\n      <div\n        class=\"\n          bg-[#584a4a] bg-opacity-30\n          rounded-[30px]\n          p-10\n          text-center text-white text-3xl\n          font-600\n          backdrop-blur-[18px]\n        \"\n      >\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n      </div>\n    </div>\n  </div>\n</div>\n"
+        },
+        {
+            "name": "LoginPage",
+            "id": "component-LoginPage-27d38041e09a7f2bb28768623f4e59829ed3ffd01fa689ed5d4172ce56dc0efecd3d7fbde8c47c28613a6686f5764277b9954f6c398f961a82be85c381c650b9",
+            "file": "src/app/auth/pages/login/login.page.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./login.page.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "loginForm",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                },
+                {
+                    "name": "passwordConfig",
+                    "defaultValue": "[\n    {\n      validationName: 'required',\n      validationMessage: 'Please input your password',\n    },\n  ]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IValidatorMessage[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "phoneNumberConfig",
+                    "defaultValue": "[\n    {\n      validationName: 'required',\n      validationMessage: 'Please input your phone number',\n    },\n  ]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IValidatorMessage[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { FormControl, FormGroup, Validators } from '@angular/forms';\nimport { IValidatorMessage } from 'src/app/shared/components/s-input/s-input.component';\n\n@Component({\n  templateUrl: './login.page.html',\n})\nexport class LoginPage {\n  loginForm: FormGroup;\n  phoneNumberConfig: IValidatorMessage[] = [\n    {\n      validationName: 'required',\n      validationMessage: 'Please input your phone number',\n    },\n  ];\n  passwordConfig: IValidatorMessage[] = [\n    {\n      validationName: 'required',\n      validationMessage: 'Please input your password',\n    },\n  ];\n  constructor() {\n    this.loginForm = new FormGroup({\n      phoneNumber: new FormControl('', Validators.required),\n      password: new FormControl('', Validators.required),\n    });\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 21
+            },
+            "templateData": "<div class=\"flex flex-col w-full\">\n  <h1 class=\"font-700 text-5xl text-blue-600 mb-2\">Welcome Back</h1>\n  <p class=\"text-lg text-gray-600 mb-16\">We support your growth</p>\n  <form class=\"flex-col flex\" [formGroup]=\"loginForm\">\n    <S-Input\n      placeHolder=\"+234 818 375 3762\"\n      [prefix]=\"true\"\n      type=\"tel\"\n      formControlName=\"phoneNumber\"\n      [controlName]=\"'phoneNumber'\"\n      [inputMode]=\"'tel'\"\n      [parentForm]=\"loginForm\"\n      [validators]=\"phoneNumberConfig\"\n    ></S-Input>\n    <S-Input\n      placeHolder=\"Enter your password\"\n      formControlName=\"password\"\n      [suffix]=\"true\"\n      type=\"password\"\n      [controlName]=\"'password'\"\n      [inputMode]=\"'text'\"\n      [parentForm]=\"loginForm\"\n      [validators]=\"passwordConfig\"\n    ></S-Input>\n  </form>\n  <a class=\"text-blue-100 text-base font-600 mb-5\" [routerLink]=\"['/auth','reset-password']\" routerLinkActive=\"router-link-active\" >Reset password</a>\n  <s-button\n    type=\"primary\"\n    size=\"large\"\n    label=\"Sign In\"\n    [isDisabled]=\"loginForm.invalid\"\n  ></s-button>\n  <p class=\"mt-6 font-500 text-gray-600\">\n    Don't have an account? <a class=\"text-blue-600\">Sign up</a>\n  </p>\n</div>\n"
+        },
+        {
+            "name": "ResetPasswordOtpComponent",
+            "id": "component-ResetPasswordOtpComponent-eabef337f0e75678f2032d36711ae3a9a5bab453c66906edced01ccb90f31dc7ae0e16ebb9349d773022c1b3c85d12e786b020be676fb6db81f90cd30268cb79",
+            "file": "src/app/auth/pages/reset-password-otp/reset-password-otp.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "styleUrls": [],
+            "styles": [],
+            "template": "<div class=\"flex flex-col w-full\">\n  <a\n    class=\"text-blue-600 flex mb-14 text-sm\"\n    [routerLink]=\"['/auth', 'login']\"\n    routerLinkActive=\"router-link-active\"\n    ><img\n      class=\"mr-3\n\"\n      src=\"assets/svgs/arrow.svg\"\n    />\n    Back to login</a\n  >\n  <h1 class=\"font-700 text-5xl text-blue-600 mb-2\">\n    Reset your<br />\n    password here\n  </h1>\n  <p class=\"text-lg text-gray-600 mb-16\">\n    Please, provide your existing phone number\n  </p>\n\n  <ng-otp-input\n    [formCtrl]=\"otpControl\"\n    [config]=\"{ length: 5 }\"\n  ></ng-otp-input>\n\n  <s-button\n    type=\"primary\"\n    size=\"large\"\n    label=\"Reset Password\"\n    [isDisabled]=\"otpControl.invalid\"\n  ></s-button>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "otpControl",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormControl",
+                    "optional": false,
+                    "description": "",
+                    "line": 41
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { FormControl, Validators } from '@angular/forms';\n\n@Component({\n  template: `\n    <div class=\"flex flex-col w-full\">\n      <a\n        class=\"text-blue-600 flex mb-14 text-sm\"\n        [routerLink]=\"['/auth', 'login']\"\n        routerLinkActive=\"router-link-active\"\n        ><img\n          class=\"mr-3\n    \"\n          src=\"assets/svgs/arrow.svg\"\n        />\n        Back to login</a\n      >\n      <h1 class=\"font-700 text-5xl text-blue-600 mb-2\">\n        Reset your<br />\n        password here\n      </h1>\n      <p class=\"text-lg text-gray-600 mb-16\">\n        Please, provide your existing phone number\n      </p>\n\n      <ng-otp-input\n        [formCtrl]=\"otpControl\"\n        [config]=\"{ length: 5 }\"\n      ></ng-otp-input>\n\n      <s-button\n        type=\"primary\"\n        size=\"large\"\n        label=\"Reset Password\"\n        [isDisabled]=\"otpControl.invalid\"\n      ></s-button>\n    </div>\n  `,\n})\nexport class ResetPasswordOtpComponent {\n  otpControl: FormControl;\n  constructor() {\n    this.otpControl = new FormControl('', Validators.required);\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 41
+            }
+        },
+        {
+            "name": "ResetPasswordPage",
+            "id": "component-ResetPasswordPage-2276c89b896b1b199e7364044cb9d834c062547d0d08f9aa6c0a22eba34a308d1187c12136eee98e8133e96171ddb293f06d2c97eed8ce0d4f80242c86b8439b",
+            "file": "src/app/auth/pages/reset-password/reset-password.page.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./reset-password.page.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "loginForm",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                },
+                {
+                    "name": "phoneNumberConfig",
+                    "defaultValue": "[\n    {\n      validationName: 'required',\n      validationMessage: 'Please input your phone number',\n    },\n  ]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IValidatorMessage[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "router",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Router",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { FormControl, FormGroup, Validators } from '@angular/forms';\nimport { Router } from '@angular/router';\nimport { IValidatorMessage } from 'src/app/shared/components/s-input/s-input.component';\n\n@Component({\n  templateUrl: './reset-password.page.html',\n})\nexport class ResetPasswordPage {\n  loginForm: FormGroup;\n  phoneNumberConfig: IValidatorMessage[] = [\n    {\n      validationName: 'required',\n      validationMessage: 'Please input your phone number',\n    },\n  ];\n\n  constructor(public router: Router) {\n    this.loginForm = new FormGroup({\n      phoneNumber: new FormControl('', Validators.required)\n    });\n\n   }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 16,
+                "jsdoctags": [
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "templateData": "<div class=\"flex flex-col w-full\">\n  <a class=\"text-blue-600 flex mb-14 text-sm\" [routerLink]=\"['/auth', 'login']\" routerLinkActive=\"router-link-active\" ><img class=\"mr-3\n    \" src=\"assets/svgs/arrow.svg\" /> Back to login</a>\n  <h1 class=\"font-700 text-5xl text-blue-600 mb-2\">\n    Reset your<br />\n    password here\n  </h1>\n  <p class=\"text-lg text-gray-600 mb-16\">\n    Please, provide your existing phone number\n  </p>\n  <form class=\"flex-col flex mb-10\" [formGroup]=\"loginForm\">\n    <S-Input\n      placeHolder=\"+234 818 375 3762\"\n      [prefix]=\"true\"\n      type=\"tel\"\n      formControlName=\"phoneNumber\"\n      [controlName]=\"'phoneNumber'\"\n      [inputMode]=\"'tel'\"\n      [parentForm]=\"loginForm\"\n      [validators]=\"phoneNumberConfig\"\n    ></S-Input>\n  </form>\n  <s-button\n    type=\"primary\"\n    size=\"large\"\n    label=\"Reset Password\"\n    [isDisabled]=\"loginForm.invalid\"\n    (doClick)=\"router.navigate(['/auth', 'otp']);\"\n  ></s-button>\n</div>\n"
+        },
+        {
+            "name": "SButtonComponent",
+            "id": "component-SButtonComponent-35c5a2518b3658ffda721f580988604f04fe75da240641225742d7a23ba0f45c61b84ace38a56436c931b1dcabde731b754263691d1a47b2a32a635043d141ea",
+            "file": "src/app/shared/components/s-button/s-button.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "s-button",
+            "styleUrls": [
+                "./s-button.component.scss"
+            ],
+            "styles": [],
+            "template": "<button    [class]=\"'btn ' + 'btn-' + type + ' btn-' + size\"\n    (click)=\"doClick.emit($event)\"\n    [disabled]=\"isDisabled\"\n  >\n    {{ label }}\n  </button>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "isDisabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 20,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "'Click Me'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 18,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "loading",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 19,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "'medium'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 17,
+                    "type": "\"small\" | \"medium\" | \"large\"",
+                    "decorators": []
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'primary'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 16,
+                    "type": "\"primary\" | \"secondary\" | \"destructive\" | \"success\"",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "doClick",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 21,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "loadingIcon",
+                    "defaultValue": "faCircleNotch",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 23
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { faCircleNotch } from '@fortawesome/free-solid-svg-icons';\n\n@Component({\n  selector: 's-button',\n  template: `<button\n    [class]=\"'btn ' + 'btn-' + type + ' btn-' + size\"\n    (click)=\"doClick.emit($event)\"\n    [disabled]=\"isDisabled\"\n  >\n    {{ label }}\n  </button>`,\n  styleUrls: ['./s-button.component.scss'],\n})\nexport class SButtonComponent {\n  @Input() type: 'primary' | 'secondary' | 'destructive' | 'success' = 'primary';\n  @Input() size: 'small' | 'medium' | 'large' = 'medium';\n  @Input() label: string = 'Click Me';\n  @Input() loading: boolean = false;\n  @Input() isDisabled: boolean = false;\n  @Output() doClick = new EventEmitter<Event>();\n\n  loadingIcon = faCircleNotch\n  constructor() {}\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "$primary-01: #26355b;\n$primary-hover: #172037;\n$secondary-01: #f8fafc;\n$secondary-hover: #f1f5f9;\n$secondary-border: #cbd5e1;\n$destructive-01: #5aa5fe;\n$destructive-focus: #4888d5;\n$success-01: #10b981;\n$success-focus: #059669;\n$disabled: #e2e8f0;\n\nbutton.btn {\n  text-align: center;\n  border-radius: 5px;\n  transition: 0.32s ease-out;\n  width: 100%;\n  &-primary {\n    background: $primary-01;\n    color: #ffffff;\n    &:hover {\n      background: $primary-hover;\n    }\n    &:focus {\n      background: $primary-hover;\n    }\n  }\n  &-secondary {\n    background: $secondary-01;\n    border: 1px solid $secondary-border;\n    color: #334155;\n    &:hover {\n      background: $secondary-hover;\n    }\n    &:focus {\n      background: $secondary-hover;\n    }\n  }\n  &-destructive {\n    background: $destructive-01;\n    color: #ffffff;\n    &:hover {\n      background: $destructive-focus;\n    }\n    &:focus {\n      background: $destructive-focus;\n    }\n  }\n  &-success {\n    background: $success-01;\n    color: #ffffff;\n    &:hover {\n      background: $success-focus;\n    }\n    &:focus {\n      background: $success-focus;\n    }\n  }\n  &-small {\n    padding: 4px 8px;\n    font-weight: 500;\n    font-size: 12px;\n    line-height: 15px;\n  }\n  &-medium {\n    padding: 8px 16px;\n    font-weight: 500;\n    font-size: 14px;\n    line-height: 20px;\n  }\n  &-large {\n    font-weight: 500;\n    font-size: 16px;\n    padding: 16px 24px;\n  }\n  &:disabled {\n    background: $disabled;\n    color: #64748b;\n  }\n}\n",
+                    "styleUrl": "./s-button.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 23
+            }
+        },
+        {
+            "name": "SInputComponent",
+            "id": "component-SInputComponent-0737eade97a97e64687f01b6a886569eb3b160650f1057f0a6a937594f6bd97d104c3b751508bb5990036475a084e2cdaa16c7d2be57137a57cd272ddd9ffaed",
+            "file": "src/app/shared/components/s-input/s-input.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [
+                {
+                    "name": "{\n    provide: NG_VALUE_ACCESSOR, multi: true, useExisting: forwardRef(() => SInputComponent),\n}",
+                    "type": "component"
+                }
+            ],
+            "selector": "S-Input",
+            "styleUrls": [
+                "./s-input.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./s-input.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "controlName",
+                    "defaultValue": "'custom-input-1'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 31,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "inputMode",
+                    "defaultValue": "'text'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 34,
+                    "type": "\"text\" | \"decimal\" | \"numeric\" | \"tel\" | \"search\" | \"email\" | \"url\" | \"none\"",
+                    "decorators": []
+                },
+                {
+                    "name": "parentForm",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 32,
+                    "type": "FormGroup",
+                    "decorators": []
+                },
+                {
+                    "name": "placeHolder",
+                    "defaultValue": "'placeholder text'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 27,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "prefix",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 28,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "suffix",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 29,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'text'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 30,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "validators",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 33,
+                    "type": "IValidatorMessage[]",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "changed",
+                    "defaultValue": "() => {...}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 48,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "customType",
+                    "defaultValue": "'password'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 43
+                },
+                {
+                    "name": "isDisabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 52,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "onTouched",
+                    "defaultValue": "() => {...}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 50,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "showPassword",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 44
+                },
+                {
+                    "name": "touched",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 46
+                },
+                {
+                    "name": "value",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 45,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "markAsTouched",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 89,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onChange",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 68,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "registerOnChange",
+                    "args": [
+                        {
+                            "name": "changeFn",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 77,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "changeFn",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "registerOnTouched",
+                    "args": [
+                        {
+                            "name": "touchedFn",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 81,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "touchedFn",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setDisabledState",
+                    "args": [
+                        {
+                            "name": "disabled",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 85,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "disabled",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setInputType",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 56,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "writeValue",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 73,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, forwardRef, Input } from '@angular/core';\nimport {\n  ControlValueAccessor,\n  FormControl,\n  FormGroup,\n  NG_VALUE_ACCESSOR,\n} from '@angular/forms';\n\nexport interface IValidatorMessage {\n  validationName: string;\n  validationMessage: string;\n}\n\n@Component({\n  selector: 'S-Input',\n  templateUrl: './s-input.component.html',\n  styleUrls: ['./s-input.component.scss'],\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      multi: true,\n      useExisting: forwardRef(() => SInputComponent),\n    },\n  ],\n})\nexport class SInputComponent implements ControlValueAccessor {\n  @Input() placeHolder: string = 'placeholder text';\n  @Input() prefix: boolean = false;\n  @Input() suffix: boolean = false;\n  @Input() type: string = 'text';\n  @Input() controlName: string = 'custom-input-1';\n  @Input() parentForm!: FormGroup;\n  @Input() validators?: IValidatorMessage[] = [];\n  @Input() inputMode:\n  | 'text'\n  | 'decimal'\n  | 'numeric'\n  | 'tel'\n  | 'search'\n  | 'email'\n  | 'url'\n  | 'none' = 'text';\n  customType = 'password';\n  showPassword: Boolean = false;\n  public value: any = '';\n  touched: boolean = false;\n\n  public changed = (value: any) => {};\n\n  public onTouched = (_: any) => {};\n\n  public isDisabled: boolean = false;\n\n  constructor() {}\n\n  setInputType() {\n    if (this.showPassword) {\n      this.customType = 'text';\n      return;\n    }\n    this.customType = 'password';\n  }\n\n  get formField(): FormControl {\n    return this.parentForm?.get(this.controlName) as FormControl;\n  }\n\n  onChange(event: Event) {\n    const value: any = (<HTMLInputElement>event.target).value;\n    this.changed(value);\n  }\n\n  writeValue(value: any) {\n    this.changed = value;\n  }\n\n  registerOnChange(changeFn: any) {\n    this.changed = changeFn;\n  }\n\n  registerOnTouched(touchedFn: any) {\n    this.onTouched = touchedFn;\n  }\n\n  setDisabledState(disabled: boolean) {\n    this.isDisabled = disabled;\n  }\n\n  markAsTouched() {\n    this.touched = !this.touched;\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./s-input.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 52
+            },
+            "implements": [
+                "ControlValueAccessor"
+            ],
+            "accessors": {
+                "formField": {
+                    "name": "formField",
+                    "getSignature": {
+                        "name": "formField",
+                        "type": "",
+                        "returnType": "FormControl",
+                        "line": 64
+                    }
+                }
+            },
+            "templateData": "<div class=\"flex flex-col w-full my-3\">\n  <div\n    class=\"\n      flex flex-row\n      border\n      rounded-[10px]\n      bg-white\n      border-gray-400\n      focus:border-blue-100\n      px-6\n      py-4\n      w-full\n    \"\n  >\n    <div class=\"mr-4\" *ngIf=\"prefix\">\n      <img src=\"assets/svgs/nigeria-flag.svg\" />\n    </div>\n    <input\n      class=\"\n        border-0\n        outline-none\n        w-full\n        focus:outline-none\n        placeholder:text-base placeholder:text-gray-500\n      \"\n      [ngClass]=\"\n        formField?.errors && formField?.dirty ? 'border-red-200 bg-red-100' : ''\n      \"\n      autocomplete=\"new-password\"\n      [type]=\"type === 'password' ? customType : type\"\n      [attr.inputmode]=\"inputMode\"\n      [value]=\"value\"\n      [disabled]=\"isDisabled\"\n      [placeholder]=\"placeHolder\"\n      (blur)=\"onTouched($event)\"\n      (input)=\"onChange($event)\"\n    />\n    <button\n      class=\"ml-4 flex justify-end\"\n      *ngIf=\"suffix\"\n      (click)=\"showPassword = !showPassword; setInputType()\"\n    >\n      <svg\n        width=\"24\"\n        height=\"24\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        xmlns=\"http://www.w3.org/2000/svg\"\n      >\n        <path\n          d=\"M12 13.5C12.8284 13.5 13.5 12.8284 13.5 12C13.5 11.1716 12.8284 10.5 12 10.5C11.1716 10.5 10.5 11.1716 10.5 12C10.5 12.8284 11.1716 13.5 12 13.5Z\"\n          fill=\"#94A3B8\"\n        />\n        <path\n          d=\"M21.8701 11.5C21.2301 10.39 17.7101 4.81999 11.7301 4.99999C6.20007 5.13999 3.00007 9.99999 2.13007 11.5C2.0423 11.652 1.99609 11.8245 1.99609 12C1.99609 12.1755 2.0423 12.348 2.13007 12.5C2.76007 13.59 6.13007 19 12.0201 19H12.2701C17.8001 18.86 21.0101 14 21.8701 12.5C21.9578 12.348 22.004 12.1755 22.004 12C22.004 11.8245 21.9578 11.652 21.8701 11.5ZM12.0001 15.5C11.3078 15.5 10.6311 15.2947 10.0556 14.9101C9.48 14.5256 9.0314 13.9789 8.76649 13.3394C8.50158 12.6998 8.43227 11.9961 8.56732 11.3172C8.70237 10.6382 9.03571 10.0146 9.52519 9.52512C10.0147 9.03564 10.6383 8.70229 11.3173 8.56724C11.9962 8.4322 12.6999 8.50151 13.3395 8.76641C13.979 9.03132 14.5256 9.47993 14.9102 10.0555C15.2948 10.6311 15.5001 11.3078 15.5001 12C15.5001 12.9283 15.1313 13.8185 14.4749 14.4749C13.8186 15.1312 12.9283 15.5 12.0001 15.5Z\"\n          fill=\"#94A3B8\"\n        />\n        <path\n          *ngIf=\"!showPassword\"\n          id=\"strike-through-line\"\n          d=\"M20.7102 19.29L19.4102 18L17.4102 16L7.89019 6.47L6.42019 5L4.71019 3.29C4.61695 3.19676 4.50626 3.1228 4.38443 3.07234C4.26261 3.02188 4.13204 2.99591 4.00019 2.99591C3.86833 2.99591 3.73776 3.02188 3.61594 3.07234C3.49411 3.1228 3.38342 3.19676 3.29019 3.29C3.10188 3.47831 2.99609 3.7337 2.99609 4C2.99609 4.2663 3.10188 4.5217 3.29019 4.71L5.53019 7L7.28019 8.7L14.5902 16L14.6602 16.07L16.0002 17.41L16.5902 18L19.2902 20.71C19.3831 20.8037 19.4937 20.8781 19.6156 20.9289C19.7375 20.9797 19.8682 21.0058 20.0002 21.0058C20.1322 21.0058 20.2629 20.9797 20.3848 20.9289C20.5066 20.8781 20.6172 20.8037 20.7102 20.71C20.8039 20.617 20.8783 20.5064 20.9291 20.3846C20.9798 20.2627 21.006 20.132 21.006 20C21.006 19.868 20.9798 19.7373 20.9291 19.6154C20.8783 19.4936 20.8039 19.383 20.7102 19.29V19.29Z\"\n          fill=\"#94A3B8\"\n        />\n      </svg>\n    </button>\n  </div>\n</div>\n"
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "id": "module-AppModule-d77ac967284d0a0242817c3c0ae1d8ce2b96698339b0f4db9c6381510ceccb8d727287cf1b7688f5eaed1344b9b9b62ef2dbb327d211ab8ed807c3498eddfbf6",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/app.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { FormsModule } from '@angular/forms';\n@NgModule({\n  imports: [\n    FontAwesomeModule,\n    BrowserModule,\n    FormsModule,\n    AppRoutingModule,\n  ],\n  declarations: [\n    AppComponent\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AppRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AppRoutingModule",
+            "id": "module-AppRoutingModule-b9c7acfaf59e8dcad35d84459e3590f6e2169fb5e53403b41ee8ea8fe4c524c6ddab40958e2cd20d5a4e7c2adcf6aad19a2083a6a257f168b1460378ca7c750f",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/app-routing.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\n\nconst routes: Routes = [\n  {\n    path: 'auth',\n    loadChildren: () =>\n      \"import('./auth/auth.module').then(\\\n        (m) => m.AuthModule\\\n      )\",\n  },\n];\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AuthModule",
+            "id": "module-AuthModule-3f90cbf4fb3aeca83006ed224cf9de074dd3872b9f61a2ea3835a04be3fcec6ab3c92492d793e0f7bda04cecdce004d99bddf44bb08f945a9cd089cac14f65ee",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/auth/auth.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\nimport { AuthRoutingModule } from './auth-routing.module';\nimport { LoginPage } from './pages/login/login.page';\nimport { ResetPasswordPage } from './pages/reset-password/reset-password.page';\nimport { AuthShellComponent } from './auth-shell/auth-shell.component';\nimport { SharedModule } from '../shared/shared.module';\nimport { ReactiveFormsModule } from '@angular/forms';\nimport { NgOtpInputModule } from 'ng-otp-input';\nimport { ResetPasswordOtpComponent } from './pages/reset-password-otp/reset-password-otp.component';\n\n@NgModule({\n  declarations: [LoginPage, ResetPasswordPage, AuthShellComponent, ResetPasswordOtpComponent],\n  imports: [\n    CommonModule,\n    SharedModule,\n    NgOtpInputModule,\n    ReactiveFormsModule,\n    AuthRoutingModule,\n  ],\n})\nexport class AuthModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AuthShellComponent"
+                        },
+                        {
+                            "name": "LoginPage"
+                        },
+                        {
+                            "name": "ResetPasswordOtpComponent"
+                        },
+                        {
+                            "name": "ResetPasswordPage"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AuthRoutingModule"
+                        },
+                        {
+                            "name": "SharedModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AuthRoutingModule",
+            "id": "module-AuthRoutingModule-b23c8c10205105255b573c4c2162778df98943b68b6aa59d21749ca0db64fd0b5a2580c25e2fdaae53f089befcefa28d96ccbe630ba321f55ef025519e6f4e95",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/auth/auth-routing.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { AuthShellComponent } from './auth-shell/auth-shell.component';\nimport { LoginPage } from './pages/login/login.page';\nimport { ResetPasswordOtpComponent } from './pages/reset-password-otp/reset-password-otp.component';\nimport { ResetPasswordPage } from './pages/reset-password/reset-password.page';\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: AuthShellComponent,\n    children: [\n      {\n        path: 'login',\n        component: LoginPage\n      },\n      {\n        path: 'reset-password',\n        component: ResetPasswordPage\n      },\n      {\n        path: 'otp',\n        component: ResetPasswordOtpComponent\n      }\n    ]\n  }\n];\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule]\n})\nexport class AuthRoutingModule { }\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "SharedModule",
+            "id": "module-SharedModule-38525479e36e8c92a1ccb9bef8f040c5bfa37beaa86e260249f87d146b0b6083b3cd28d3e30fe17066878c2122522b3fec5e4697b53332d4cffcfa82bbf4debb",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/shared/shared.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { SButtonComponent } from './components/s-button/s-button.component';\nimport { SInputComponent } from './components/s-input/s-input.component';\nimport { FontAwesomeModule } from '@fortawesome/angular-fontawesome';\nimport { ReactiveFormsModule } from '@angular/forms';\n\n\n@NgModule({\n  imports: [\n    FontAwesomeModule,\n    ReactiveFormsModule,\n    CommonModule\n  ],\n  declarations: [\n    SButtonComponent,\n    SInputComponent\n  ], exports: [\n    SButtonComponent,\n    SInputComponent\n  ]\n})\nexport class SharedModule { }\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "SButtonComponent"
+                        },
+                        {
+                            "name": "SInputComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "SButtonComponent"
+                        },
+                        {
+                            "name": "SInputComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "Alt",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-button/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: true\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: false\n}"
+            },
+            {
+                "name": "Large",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-button/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Loading",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-button/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Number",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Password",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "PhoneNumber",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-button/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type"
+            },
+            {
+                "name": "Secondary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-button/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Small",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-button/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Success",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-button/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-button/Button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<SButtonComponent>",
+                "defaultValue": "(args: SButtonComponent) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<SInputComponent>",
+                "defaultValue": "(args: SInputComponent) => ({\n  props: args,\n})"
+            },
+            {
+                "name": "Text",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/s-input/Input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/app/shared/components/s-button/Button.stories.ts": [
+                {
+                    "name": "Alt",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-button/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Large",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-button/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Loading",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-button/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-button/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Secondary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-button/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Small",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-button/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Success",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-button/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-button/Button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<SButtonComponent>",
+                    "defaultValue": "(args: SButtonComponent) => ({\n  props: args,\n})"
+                }
+            ],
+            "src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: true\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false\n}"
+                }
+            ],
+            "src/app/shared/components/s-input/Input.stories.ts": [
+                {
+                    "name": "Number",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Password",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "PhoneNumber",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<SInputComponent>",
+                    "defaultValue": "(args: SInputComponent) => ({\n  props: args,\n})"
+                },
+                {
+                    "name": "Text",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/s-input/Input.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "className": "AppModule",
+        "children": [
+            {
+                "name": "routes",
+                "filename": "src/app/app-routing.module.ts",
+                "module": "AppRoutingModule",
+                "children": [
+                    {
+                        "path": "auth",
+                        "loadChildren": "./auth/auth.module#AuthModule",
+                        "children": [
+                            {
+                                "kind": "module",
+                                "children": [
+                                    {
+                                        "name": "routes",
+                                        "filename": "src/app/auth/auth-routing.module.ts",
+                                        "module": "AuthRoutingModule",
+                                        "children": [
+                                            {
+                                                "path": "",
+                                                "component": "AuthShellComponent",
+                                                "children": [
+                                                    {
+                                                        "path": "login",
+                                                        "component": "LoginPage"
+                                                    },
+                                                    {
+                                                        "path": "reset-password",
+                                                        "component": "ResetPasswordPage"
+                                                    },
+                                                    {
+                                                        "path": "otp",
+                                                        "component": "ResetPasswordOtpComponent"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "kind": "module"
+                                    }
+                                ],
+                                "module": "AuthModule"
+                            }
+                        ]
+                    }
+                ],
+                "kind": "module"
+            }
+        ]
+    },
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/auth/auth-shell/auth-shell.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AuthShellComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/auth/pages/login/login.page.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "LoginPage",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/auth/pages/reset-password-otp/reset-password-otp.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ResetPasswordOtpComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/auth/pages/reset-password/reset-password.page.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ResetPasswordPage",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-button/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Alt",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-button/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Large",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-button/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Loading",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-button/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-button/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Secondary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-button/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Small",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-button/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Success",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-button/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-button/s-button.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SButtonComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/9",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Number",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Password",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "PhoneNumber",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-input/Input.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Text",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-input/s-input.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SInputComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/24",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/s-input/s-input.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "IValidatorMessage",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "context",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "require",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}
